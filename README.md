@@ -1,4 +1,4 @@
-# sceond
+# xn-sys-web
 
 ## Project setup
 ```

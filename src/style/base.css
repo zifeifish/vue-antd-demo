@@ -1,0 +1,43 @@
+* {
+  box-sizing: border-box;
+}
+html {
+  font-size: 16px;
+}
+html h1,
+html h2,
+html h3,
+html h4,
+html h5,
+html h6,
+html p {
+  padding: 0;
+  margin: 0;
+}
+html body {
+  margin: 0;
+  min-height: 100%;
+  color: #333;
+  background-color: #fff;
+  font-family: "Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif;
+}
+html body li {
+  list-style: none;
+}
+html body img,
+html body image {
+  display: inline-block;
+  border: none;
+}
+html body textarea {
+  resize: none;
+}
+html body a {
+  text-decoration: none;
+}
+html body a:active {
+  text-decoration: none;
+}
+html body a:hover {
+  text-decoration: none;
+}
