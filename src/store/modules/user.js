@@ -10,12 +10,6 @@ const user = {
         SET_TOKEN: (state, token) => {
             state.token = token
         },
-        SET_AVATAR: (state, avatar) => {
-            state.avatar = avatar
-        },
-        SET_ROLES: (state, roles) => {
-            state.roles = roles
-        },
         SET_INFO: (state, info) => {
             state.info = info
         },
