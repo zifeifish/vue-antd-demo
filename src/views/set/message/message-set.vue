@@ -133,7 +133,7 @@ export default {
       const data = [
         {
           id: 1,
-          sourceName: "链融科技平台",
+          sourceName: "葱姜蒜科技平台",
           evn: 0,
           phoneNumber: "188 2024 8184",
           mailAddress: "www.lrscft@163.com",
@@ -145,7 +145,7 @@ export default {
         },
         {
           id: 2,
-          sourceName: "链融科技智能合同平台",
+          sourceName: "葱姜蒜科技智能合同平台",
           evn: 1,
           phoneNumber: "188 2024 8184",
           mailAddress: "www.lrscft@163.com",
@@ -157,7 +157,7 @@ export default {
         },
         {
           id: 3,
-          sourceName: "链融科技保理云平台",
+          sourceName: "葱姜蒜科技保理云平台",
           evn: 2,
           phoneNumber: "188 2024 8184",
           mailAddress: "www.lrscft@163.com",

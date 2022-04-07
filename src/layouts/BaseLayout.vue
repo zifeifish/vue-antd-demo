@@ -7,8 +7,8 @@
       :collapsible="collapsible"
     >
       <div class="logo">
-        <img src="~@/assets/logo.png" alt="logo" />
-        <h1 v-if="!collapsed">链融消息通知平台</h1>
+        <img src="" alt="logo" />
+        <h1 v-if="!collapsed">葱姜蒜通知平台</h1>
       </div>
       <sider-menu
         :mode="mode"

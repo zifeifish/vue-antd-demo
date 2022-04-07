@@ -3,21 +3,21 @@
     <div class="container">
       <div class="top">
         <div class="header">
-          <img src="~@/assets/images/logo.png" class="logo" alt="链融科技" />
+          <img src="" class="logo" alt="葱姜蒜科技" />
         </div>
       </div>
 
       <router-view></router-view>
 
       <div class="footer">
-        ©深圳市链融科技股份有限公司版权所有 2017-2021
+        ©葱姜蒜科技有限公司版权所有 2017-2022
         <img src="~@/assets/images/police.png" />
         <a
           href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030402004002"
           target="_blank"
-          >粤公网安备 44030402004002号</a
+          >粤公网安备 9797979797号</a
         >&nbsp;<a href="http://beian.miit.gov.cn/" target="_blank"
-          >粤ICP备17097165号</a
+          >粤ICP备646256866号</a
         >
       </div>
     </div>

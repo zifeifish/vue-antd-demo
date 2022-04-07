@@ -2,7 +2,7 @@
   <div>
     <div class="footer">
       <div class="links">
-        <a href="#" target="_blank">链融消息通知平台</a>
+        <a href="#" target="_blank">葱姜蒜通知平台</a>
       </div>
       <div class="copyright">
         Copyright

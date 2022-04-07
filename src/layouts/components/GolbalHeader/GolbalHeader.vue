@@ -13,7 +13,7 @@
         <a-menu-item key="0">
           <a-row style="text-align: center">
             <img style="width: 80px" src="~@/assets/images/avatar.png" alt="" />
-            <h4 style="margin-top: 10px">王铮</h4>
+            <h4 style="margin-top: 10px">葱姜蒜</h4>
           </a-row>
           <a-divider />
           <a-row style="text-align: right">

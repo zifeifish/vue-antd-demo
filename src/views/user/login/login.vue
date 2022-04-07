@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="login-box">
-      <div class="login-title">链融消息通知平台</div>
+      <div class="login-title">葱姜蒜的姜</div>
       <div class="login-form">
         <a-form
           id="formLogin"
