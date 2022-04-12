@@ -1,6 +1,7 @@
 <template>
   <div>
     <a-select
+      id="send-total"
       style="min-width: 150px; margin-left: 25px"
       :allow-clear="true"
       placeholder="发送量"

@@ -4,7 +4,7 @@
       <div class="table-page-search-wrapper">
         <a-form layout="inline">
           <a-row :gutter="48">
-            <a-col :md="8" :sm="24">
+            <a-col id="mobile" :md="8" :sm="24">
               <a-form-item label="接收手机号">
                 <a-input
                   placeholder="请输入..."
@@ -12,7 +12,7 @@
                 />
               </a-form-item>
             </a-col>
-            <a-col :md="8" :sm="24">
+            <a-col id="name" :md="8" :sm="24">
               <a-form-item label="接收人姓名">
                 <a-input
                   placeholder="请输入..."
@@ -84,8 +84,11 @@
                 :sm="8"
               >
                 <span>
-                  <a-button type="primary" @click="onSearch()">查询</a-button>
+                  <a-button id="search-dom" type="primary" @click="onSearch()"
+                    >查询</a-button
+                  >
                   <a-button
+                    id="search-clear"
                     type="default"
                     style="margin: 0 8px"
                     @click="onRest()"
@@ -105,6 +108,7 @@
       <a-divider :dashed="true"></a-divider>
 
       <a-table
+        id="table"
         :loading="loading"
         :columns="columns"
         :data-source="tableData"
@@ -179,6 +183,8 @@
 <script>
 import LineChart from "@/components/LineChart/LineChart.vue";
 import { paginationMixins } from "@/mixins/index";
+import Driver from "driver.js";
+import { driverConfig } from "@/shared/index";
 export default {
   name: "Message",
   components: { LineChart },
@@ -277,6 +283,64 @@ export default {
   },
   created() {
     this.getList();
+  },
+  mounted() {
+    const driver = new Driver({
+      ...driverConfig,
+    });
+    driver.defineSteps([
+      {
+        element: "#mobile",
+        popover: {
+          title: "手机号",
+          description: "在此处输入接收手机号",
+          position: "bottom",
+        },
+      },
+      {
+        element: "#name",
+        popover: {
+          title: "命名",
+          description: "输入接收人姓名",
+          position: "bottom",
+        },
+      },
+      {
+        element: "#search-dom",
+        popover: {
+          title: "查询",
+          description: "点击此处开始查询",
+          position: "bottom",
+        },
+      },
+      {
+        element: "#table",
+        popover: {
+          title: "查询结果",
+          description: "查询结果展示在这里",
+          position: "bottom",
+        },
+      },
+      {
+        element: "#send-total",
+        popover: {
+          title: "查询发送量",
+          description: "点击下拉框选择要查询的发送量",
+          position: "bottom",
+        },
+      },
+      {
+        element: "#xnChart",
+        popover: {
+          title: "折线图",
+          description: "短信发送量折线图",
+          position: "bottom",
+        },
+      },
+    ]);
+    setTimeout(() => {
+      driver.start();
+    }, 0);
   },
   methods: {
     /**
