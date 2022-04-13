@@ -1,4 +1,4 @@
-# xn-sys-web
+# hcy-sys-web
 
 ## Project setup
 ```
