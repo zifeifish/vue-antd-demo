@@ -9,27 +9,29 @@
       @openChange="onOpenChange"
     >
       <template v-for="menuInfo in menu">
-        <a-menu-item v-if="!menuInfo.children" :key="menuInfo.path">
+        <a-menu-item v-if="!menuInfo.children" :key="menuInfo.path" @click="navTo(menuInfo.path)">
           <a-icon v-if="menuInfo.icon" :type="menuInfo.icon" />
           <span>{{ menuInfo.title }}</span>
         </a-menu-item>
-        <a-sub-menu :key="menuInfo.path">
-          <span slot="title">
-            <a-icon v-if="menuInfo.icon" :type="menuInfo.icon" />
-            <span>{{ menuInfo.title }}</span>
-          </span>
-          <template v-for="item in menuInfo.children">
-            <a-menu-item
-              v-if="!item.children"
-              :key="item.path"
-              @click="navTo(item.path)"
-            >
-              <a-icon v-if="item.icon" :type="item.icon" />
-              <span>{{ item.title }}</span>
-            </a-menu-item>
-            <sub-menu v-else :key="item.path" :menu-info="item" />
-          </template>
-        </a-sub-menu>
+        <template v-if="menuInfo.children">
+          <a-sub-menu :key="menuInfo.path">
+            <span slot="title">
+              <a-icon v-if="menuInfo.icon" :type="menuInfo.icon" />
+              <span>{{ menuInfo.title }}</span>
+            </span>
+            <template v-for="item in menuInfo.children">
+              <a-menu-item
+                v-if="!item.children"
+                :key="item.path"
+                @click="navTo(item.path)"
+              >
+                <a-icon v-if="item.icon" :type="item.icon" />
+                <span>{{ item.title }}</span>
+              </a-menu-item>
+              <sub-menu v-else :key="item.path" :menu-info="item" />
+            </template>
+          </a-sub-menu>
+        </template>
       </template>
     </a-menu>
   </div>
