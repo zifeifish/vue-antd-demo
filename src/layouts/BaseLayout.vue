@@ -96,6 +96,22 @@ export default {
             },
           ],
         },
+        // {
+        //   path: '/edit-article',
+        //   icon: "fund",
+        //   title: "文本编辑",
+        //   children: [
+        //     {
+        //       path: "/edit-article/index",
+        //       title: "信息设置",
+        //     }
+        //   ]
+        // },
+        {
+          path: "/edit-article/index",
+          icon: "setting",
+          title: "9999",
+        }
       ],
     };
   },

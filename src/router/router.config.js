@@ -58,6 +58,21 @@ export const routerConfig = [
         ]
     },
     {
+        path: '/edit-article',
+        name: 'article',
+        meta: { title: '文章编辑' },
+        component: BaseLayout,
+        children: [
+            {
+                path: 'index',
+                name: 'edit-article',
+                meta: { title: '' },
+                component: () => import('@/views/article-edit/article-edit.vue')
+            },
+        ],
+
+    },
+    {
         path: '/403',
         component: () =>
             import(/* webpackChunkName: "fail" */ '@/views/exception/403'),
