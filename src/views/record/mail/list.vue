@@ -2,101 +2,12 @@
   <div>
     <a-card :bordered="false">
       <div class="table-page-search-wrapper">
-        <a-form layout="inline">
-          <a-row :gutter="48">
-            <a-col :md="8" :sm="24">
-              <a-form-item label="接收邮箱">
-                <a-input placeholder="请输入..." v-model="querParams.mail" />
-              </a-form-item>
-            </a-col>
-            <a-col :md="8" :sm="24">
-              <a-form-item label="接收人姓名">
-                <a-input
-                  placeholder="请输入..."
-                  v-model="querParams.useName"
-                ></a-input>
-              </a-form-item>
-            </a-col>
-            <template v-if="isExpand">
-              <a-col :md="8" :sm="24">
-                <a-form-item label="信息类型">
-                  <a-input
-                    placeholder="请输入..."
-                    v-model="querParams.messageType"
-                  ></a-input>
-                </a-form-item>
-              </a-col>
-              <a-col :md="8" :sm="24">
-                <a-form-item label="发送内容">
-                  <a-input
-                    placeholder="请输入..."
-                    v-model="querParams.sendContent"
-                  ></a-input>
-                </a-form-item>
-              </a-col>
-              <a-col :md="8" :sm="24">
-                <a-form-item label="发送时间">
-                  <a-range-picker
-                    show-time
-                    format="YYYY-MM-DD HH:mm:ss"
-                    style="width: 100%"
-                    v-model="querParams.sendTime"
-                  >
-                    <a-icon slot="suffixIcon" type="smile" />
-                  </a-range-picker>
-                </a-form-item>
-              </a-col>
-              <a-col :md="8" :sm="24">
-                <a-form-item label="发送结果">
-                  <a-select
-                    placeholder="请选择"
-                    v-model="querParams.sendResult"
-                  >
-                    <a-select-option value="1">成功</a-select-option>
-                    <a-select-option value="0">失败</a-select-option>
-                  </a-select>
-                </a-form-item>
-              </a-col>
-              <a-col :md="8" :sm="24">
-                <a-form-item label="发送渠道">
-                  <a-input
-                    placeholder="请输入..."
-                    v-model="querParams.sendChannel"
-                  ></a-input>
-                </a-form-item>
-              </a-col>
-              <a-col :md="8" :sm="24">
-                <a-form-item label="发送请求来源">
-                  <a-input
-                    placeholder="请输入来源、人也、业务"
-                    v-model="querParams.sendSource"
-                  ></a-input>
-                </a-form-item>
-              </a-col>
-            </template>
-            <template>
-              <a-col
-                style="text-align: right"
-                :md="isExpand ? '24' : '8'"
-                :sm="8"
-              >
-                <span>
-                  <a-button type="primary" @click="onSearch()">查询</a-button>
-                  <a-button
-                    type="default"
-                    style="margin: 0 8px"
-                    @click="onRest()"
-                    >重置</a-button
-                  >
-                  <a href="javaScript: void(0)" @click="isExpand = !isExpand">
-                    {{ isExpand ? "收起" : "展开" }}
-                    <a-icon :type="isExpand ? 'up' : 'down'" />
-                  </a>
-                </span>
-              </a-col>
-            </template>
-          </a-row>
-        </a-form>
+        <hu-search-form
+          :fields="showFields"
+          :model="querParams"
+          @onSearch="onSearch"
+          @onRest="onRest"
+        ></hu-search-form>
       </div>
 
       <a-divider :dashed="true"></a-divider>
@@ -179,8 +90,8 @@
       ref="viewModal"
       :visible.sync="fileViewVisible"
       @action="closeModal"
-    ></file-view-modal>
-    
+    >
+    </file-view-modal>
   </div>
 </template>
 
@@ -188,9 +99,10 @@
 import LineChart from "@/components/LineChart/LineChart.vue";
 import { paginationMixins } from "@/mixins/index";
 import FileViewModal from "@/components/FileViewModal/index.vue";
+import HuSearchForm from "@/components/SearchForm/SearchForm.vue";
 export default {
   namr: "Mail",
-  components: { LineChart, FileViewModal },
+  components: { LineChart, FileViewModal, HuSearchForm },
   mixins: [paginationMixins],
   data() {
     return {
@@ -276,6 +188,81 @@ export default {
       selectedRows: [],
       // chartData
       chartData: [],
+      showFields: [
+        {
+          key: "email",
+          type: "input",
+          templateOptions: {
+            label: "接收邮箱",
+            placeholder: "请输入",
+            required: false,
+          },
+        },
+        {
+          key: "username",
+          type: "input",
+          templateOptions: {
+            label: "接收人姓名",
+            placeholder: "请输入",
+            required: false,
+          },
+        },
+        {
+          key: "messageType",
+          type: "input",
+          templateOptions: {
+            label: "信息类型",
+            placeholder: "请输入",
+            required: false,
+          },
+        },
+        {
+          key: "sendContent",
+          type: "input",
+          templateOptions: {
+            label: "发送内容",
+            placeholder: "请输入",
+            required: false,
+          },
+        },
+        {
+          key: "sendTime",
+          type: "date-range",
+          templateOptions: {
+            label: "发送时间",
+            placeholder: "",
+            required: false,
+            showTime: true,
+            format: "YYYY-MM-DD HH:mm:ss",
+          },
+        },
+        {
+          key: "sendResult",
+          type: "select",
+          templateOptions: {
+            label: "发送结果",
+            placeholder: "请选择",
+            required: false,
+            options: [
+              { label: "成功", value: 1 },
+              { label: "失败", value: 0 },
+            ],
+          },
+        },
+        {
+          key: "accptResult",
+          type: "select",
+          templateOptions: {
+            label: "是否接受发送报告",
+            placeholder: "请选择",
+            required: false,
+            options: [
+              { label: "是", value: 1 },
+              { label: "否", value: 0 },
+            ],
+          },
+        },
+      ],
     };
   },
   computed: {
@@ -583,20 +570,23 @@ export default {
     /**
      * 查询
      */
-    onSearch() {
-      console.log(this.querParams);
+    onSearch(e) {
+      console.log("查询", e);
     },
 
     /**
      * 重置
      */
-    onRest() {
+    onRest(e) {
       this.querParams = {};
-      console.log(this.querParams);
+      console.log("重置", e);
     },
   },
 };
 </script>
 
 <style lang="less" scoped>
+/deep/ .ant-card-body {
+  padding: 25px 5px;
+}
 </style>
