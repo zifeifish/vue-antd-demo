@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 256px">
+  <div style="width: 240px">
     <a-menu
       v-model="selectedKeys"
       :open-keys="openKeys"

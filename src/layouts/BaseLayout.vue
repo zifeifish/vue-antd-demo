@@ -1,7 +1,7 @@
 <template>
   <a-layout id="layout-container">
     <a-layout-sider
-      width="256px"
+      width="240px"
       v-model="collapsed"
       :trigger="null"
       :collapsible="collapsible"
@@ -32,7 +32,7 @@
       <nav-header style="margin-top: 2px"></nav-header>
       <a-layout-content
         :style="{
-          margin: '30px 24px',
+          margin: '30px 15px',
           minHeight: '280px',
           overflowY: 'scroll',
         }"
