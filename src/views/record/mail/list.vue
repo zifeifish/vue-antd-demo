@@ -2,44 +2,25 @@
   <div>
     <a-card :bordered="false">
       <div class="table-page-search-wrapper">
-        <hu-search-form
-          :fields="showFields"
-          :model="querParams"
-          @onSearch="onSearch"
-          @onRest="onRest"
-        ></hu-search-form>
+        <hu-search-form :form="form" :fields="showFields" :model="querParams" @onSearch="onSearch" @onRest="onRest"></hu-search-form>
       </div>
 
       <a-divider :dashed="true"></a-divider>
 
-      <a-table
-        :loading="loading"
-        :columns="columns"
-        :data-source="tableData"
-        :row-selection="rowSelection"
-        :pagination="pagination"
-        :scroll="{ x: 2500, y: 400 }"
-        row-key="id"
-      >
+      <a-table :loading="loading" :columns="columns" :data-source="tableData" :row-selection="rowSelection"
+        :pagination="pagination" :scroll="{ x: 2500, y: 400 }" row-key="id">
         <span slot="serial" slot-scope="text, record, index">
           {{ index + 1 }}
         </span>
         <span slot="messageType" slot-scope="text">
           {{ text | formateSelectOptionFilter("messageType") }}
         </span>
-        <span
-          slot="quoteCount"
-          slot-scope="text"
-          :style="{ color: text ? '#1890ff' : '' }"
-        >
+        <span slot="quoteCount" slot-scope="text" :style="{ color: text ? '#1890ff' : '' }">
           {{ text ? "是" : "否" }}
         </span>
         <span slot="action" slot-scope="text, record">
           <template>
-            <a-popconfirm
-              title="您确定要重发吗？"
-              @confirm="delIndicator(record)"
-            >
+            <a-popconfirm title="您确定要重发吗？" @confirm="delIndicator(record)">
               <a-icon slot="icon" type="close-circle" style="color: #f04134" />
               <a>重发</a>
             </a-popconfirm>
@@ -79,18 +60,10 @@
     </a-card>
 
     <a-card style="margin-top: 20px" :bordered="false">
-      <line-chart
-        :chartData="chartData"
-        chartTitle="邮件发送量折线图"
-      ></line-chart>
+      <line-chart :chartData="chartData" chartTitle="邮件发送量折线图"></line-chart>
     </a-card>
 
-    <file-view-modal
-      v-if="fileViewVisible"
-      ref="viewModal"
-      :visible.sync="fileViewVisible"
-      @action="closeModal"
-    >
+    <file-view-modal v-if="fileViewVisible" ref="viewModal" :visible.sync="fileViewVisible" @action="closeModal">
     </file-view-modal>
   </div>
 </template>
@@ -107,7 +80,7 @@ export default {
   data() {
     return {
       fileViewVisible: false,
-      querParams: {},
+      querParams: { email: '计划可接受的' },
       // 展开/收起
       isExpand: false,
       // 结束时间框
@@ -188,6 +161,7 @@ export default {
       selectedRows: [],
       // chartData
       chartData: [],
+      form: this.$form.createForm(this),
       showFields: [
         {
           key: "email",
@@ -195,7 +169,20 @@ export default {
           templateOptions: {
             label: "接收邮箱",
             placeholder: "请输入",
-            required: false,
+            rules: [
+              {
+                required: false,
+                // message: '必填项,不能为空',
+                // 自定义校验
+                validator: (rule, value, callback) => {
+                  if (value.length > 0) {
+                    callback();
+                    return;
+                  }
+                  callback('Price must greater than zero!');
+                }
+              }
+            ]
           },
         },
         {
@@ -204,64 +191,77 @@ export default {
           templateOptions: {
             label: "接收人姓名",
             placeholder: "请输入",
-            required: false,
+            rules: [
+              {
+                required: true,
+                // message: '必填项,不能为空',
+                // 自定义校验
+                validator: (rule, value, callback) => {
+                  if (value.length > 6) {
+                    callback();
+                    return;
+                  }
+                  callback('不合规!');
+                }
+              }
+            ]
           },
         },
-        {
-          key: "messageType",
-          type: "input",
-          templateOptions: {
-            label: "信息类型",
-            placeholder: "请输入",
-            required: false,
-          },
-        },
-        {
-          key: "sendContent",
-          type: "input",
-          templateOptions: {
-            label: "发送内容",
-            placeholder: "请输入",
-            required: false,
-          },
-        },
-        {
-          key: "sendTime",
-          type: "date-range",
-          templateOptions: {
-            label: "发送时间",
-            placeholder: "",
-            required: false,
-            showTime: true,
-            format: "YYYY-MM-DD HH:mm:ss",
-          },
-        },
-        {
-          key: "sendResult",
-          type: "select",
-          templateOptions: {
-            label: "发送结果",
-            placeholder: "请选择",
-            required: false,
-            options: [
-              { label: "成功", value: 1 },
-              { label: "失败", value: 0 },
-            ],
-          },
-        },
-        {
-          key: "accptResult",
-          type: "select",
-          templateOptions: {
-            label: "是否接受发送报告",
-            placeholder: "请选择",
-            required: false,
-            options: [
-              { label: "是", value: 1 },
-              { label: "否", value: 0 },
-            ],
-          },
-        },
+        // {
+        //   key: "messageType",
+        //   type: "input",
+        //   templateOptions: {
+        //     label: "信息类型",
+        //     placeholder: "请输入",
+        //     required: false,
+        //   },
+        // },
+        // {
+        //   key: "sendContent",
+        //   type: "input",
+        //   templateOptions: {
+        //     label: "发送内容",
+        //     placeholder: "请输入",
+        //     required: false,
+        //   },
+        // },
+        // {
+        //   key: "sendTime",
+        //   type: "date-range",
+        //   templateOptions: {
+        //     label: "发送时间",
+        //     placeholder: "",
+        //     required: false,
+        //     showTime: true,
+        //     format: "YYYY-MM-DD HH:mm:ss",
+        //   },
+        // },
+        // {
+        //   key: "sendResult",
+        //   type: "select",
+        //   templateOptions: {
+        //     label: "发送结果",
+        //     placeholder: "请选择",
+        //     required: false,
+        //     options: [
+        //       { label: "成功", value: 1 },
+        //       { label: "失败", value: 0 },
+        //     ],
+        //   },
+        // },
+        // {
+        //   key: "accptResult",
+        //   type: "select",
+        //   templateOptions: {
+        //     label: "是否接受发送报告",
+        //     placeholder: "请选择",
+        //     required: false,
+        //     options: [
+        //       { label: "是", value: 1 },
+        //       { label: "否", value: 0 },
+        //     ],
+        //   },
+        // },
       ],
     };
   },
@@ -278,6 +278,7 @@ export default {
     currentPageSize: "getList",
   },
   created() {
+    console.log(999, this.$form);
     this.getList();
   },
   methods: {
@@ -572,6 +573,13 @@ export default {
      */
     onSearch(e) {
       console.log("查询", e);
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          console.log('Received values of form: ', values);
+        } else {
+          console.log('err: ', err, values);
+        }
+      });
     },
 
     /**
@@ -579,6 +587,7 @@ export default {
      */
     onRest(e) {
       this.querParams = {};
+      this.form.setFieldsValue(null)
       console.log("重置", e);
     },
   },

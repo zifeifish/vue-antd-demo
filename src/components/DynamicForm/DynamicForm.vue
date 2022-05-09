@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a-form layout="inline">
+        <a-form layout="inline" :form="form">
             <a-row>
                 <hu-dynamic-form-input v-for="field in fields" :key="field.key" :fieldConfig="field" :model="model">
                 </hu-dynamic-form-input>
@@ -32,6 +32,9 @@ export default {
             type: Array,
             required: true,
         },
+        form: {
+            required: true,
+        },
         model: {
             type: Object,
             required: true,
@@ -42,7 +45,13 @@ export default {
     data() {
         return {};
     },
-    created() { },
+    created() {
+        console.log(666, this.$props);
+        
+    },
+    mounted() {
+       this.$props.form.setFieldsValue(this.$props.model) 
+    },
     methods: {},
 };
 </script>

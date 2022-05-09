@@ -3,26 +3,21 @@
     <template v-if="fieldConfig.type === 'input'">
       <a-col :md="8" :sm="24">
         <a-form-item :label="fieldConfig.templateOptions.label">
-          <a-input
-            :placeholder="fieldConfig.templateOptions.placeholder"
-            v-model="model[fieldConfig.key]"
-          />
+          <a-input :placeholder="fieldConfig.templateOptions.placeholder" v-decorator="[
+            fieldConfig.key,
+            {
+              rules: fieldConfig.templateOptions.rules,
+            },
+          ]" />
         </a-form-item>
       </a-col>
     </template>
     <template v-else-if="fieldConfig.type === 'select'">
       <a-col :md="8" :sm="24">
         <a-form-item :label="fieldConfig.templateOptions.label">
-          <a-select
-            :placeholder="fieldConfig.templateOptions.placeholder"
-            v-model="model[fieldConfig.key]"
-          >
-            <a-select-option
-              v-for="option in fieldConfig.templateOptions.options"
-              :key="option.value"
-              :value="option.value"
-              >{{ option.label }}</a-select-option
-            >
+          <a-select :placeholder="fieldConfig.templateOptions.placeholder">
+            <a-select-option v-for="option in fieldConfig.templateOptions.options" :key="option.value"
+              :value="option.value">{{ option.label }}</a-select-option>
           </a-select>
         </a-form-item>
       </a-col>
@@ -30,12 +25,8 @@
     <template v-else-if="fieldConfig.type === 'date-range'">
       <a-col :md="8" :sm="24">
         <a-form-item label="发送时间">
-          <a-range-picker
-            :showTime="fieldConfig.templateOptions.showTime"
-            :format="fieldConfig.templateOptions.format"
-            style="width: 100%"
-            v-model="model[fieldConfig.key]"
-          >
+          <a-range-picker :showTime="fieldConfig.templateOptions.showTime" :format="fieldConfig.templateOptions.format"
+            style="width: 100%">
           </a-range-picker>
         </a-form-item>
       </a-col>
@@ -69,11 +60,11 @@ export default {
   },
   computed: {
     data: {
-      get: function() {
+      get: function () {
         console.log(777, this.$props);
         return this.$props.model[this.$props.fieldConfig.key];
       },
-      set: function(val) {
+      set: function (val) {
         console.log(888, this.$props.model);
         this.$props.model[this.$props.fieldConfig.key] = val;
       },
@@ -83,9 +74,10 @@ export default {
   data() {
     return {};
   },
-  created() {},
+  created() { },
   methods: {},
 };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+</style>

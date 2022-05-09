@@ -1,10 +1,9 @@
 <template>
   <div>
-    <a-form layout="inline">
       <a-row :gutter="10">
         <a-col :span="20">
             <!-- 动态表单 -->
-            <hu-dynamic-form :fields="showFields" :model="model"></hu-dynamic-form>
+            <hu-dynamic-form :form="form" :fields="showFields" :model="model"></hu-dynamic-form>
         </a-col>
         <a-col :span="4">
           <div>
@@ -19,7 +18,6 @@
           </div>
         </a-col>
       </a-row>
-    </a-form>
   </div>
 </template>
 
@@ -43,6 +41,9 @@ export default {
       type: Array,
       required: true
     },
+    form: {
+            required: true,
+        },
     model: {
       type: Object,
       required: true,
@@ -54,7 +55,9 @@ export default {
     }
   },
   watch: {},
-  created() {},
+  created() {
+    console.log(777, this.$props);
+  },
   methods: {
     /**
      * 查询
