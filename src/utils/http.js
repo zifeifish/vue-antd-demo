@@ -23,7 +23,10 @@ const CODEMESSAGE = {
     504: '网关超时',
 };
 const service = axios.create({
-    baseURL: process.env.VUE_APP_API_BASE_URL,
+    // baseURL: process.env.VUE_APP_API_BASE_URL,
+    // baseURL: `${location.origin}/${process.env.VUE_APP_API_BASE_URL}`, // api base_url
+    // baseURL: `http://10.10.20.31:8888`, // api base_url
+    baseURL: `/product/api`, // api base_url
     timeout: 60000,
 });
 
