@@ -1,42 +1,25 @@
 <template>
   <a-layout id="layout-container">
-    <a-layout-sider
-      width="240px"
-      v-model="collapsed"
-      :trigger="null"
-      :collapsible="collapsible"
-    >
+    <a-layout-sider width="240px" v-model="collapsed" :trigger="null" :collapsible="collapsible">
       <div class="logo">
         <img src="" alt="logo" />
         <h1 v-if="!collapsed">葱姜蒜通知平台</h1>
       </div>
-      <sider-menu
-        :mode="mode"
-        :theme="theme"
-        :menu="menu"
-        :collapsed="collapsed"
-      ></sider-menu>
+      <sider-menu :mode="mode" :theme="theme" :menu="menu" :collapsed="collapsed"></sider-menu>
     </a-layout-sider>
 
     <a-layout>
       <a-layout-header style="background: #fff; padding: 0">
         <div style="display: flex; justify-content: space-between">
-          <a-icon
-            class="trigger"
-            :type="collapsed ? 'menu-unfold' : 'menu-fold'"
-            @click="() => (collapsed = !collapsed)"
-          />
+          <a-icon class="trigger" :type="collapsed ? 'menu-unfold' : 'menu-fold'"
+            @click="() => (collapsed = !collapsed)" />
           <golbal-header style="margin-right: 50px"></golbal-header>
         </div>
       </a-layout-header>
       <nav-header style="margin-top: 2px"></nav-header>
-      <a-layout-content
-        :style="{
-          margin: '30px 15px',
-          minHeight: '280px',
-          overflowY: 'scroll',
-        }"
-      >
+      <a-layout-content :style="{
+        margin: '30px 15px',
+      }">
         <router-view></router-view>
       </a-layout-content>
 
@@ -109,8 +92,8 @@ export default {
         // },
         {
           path: "/edit-article/index",
-          icon: "setting",
-          title: "9999",
+          icon: "",
+          title: "编辑文章",
         }
       ],
     };
@@ -121,6 +104,7 @@ export default {
 #layout-container {
   height: 100%;
 }
+
 #layout-container .trigger {
   font-size: 18px;
   line-height: 64px;
@@ -140,17 +124,24 @@ export default {
   align-items: center;
   padding-left: 24px;
   background: #002140;
+
   img {
     height: 32px;
   }
+
   h1 {
     color: #fff;
     font-size: 20px;
     margin: 0 0 0 12px;
   }
+
   .layout-header {
     display: flex;
     justify-content: space-around;
   }
+}
+
+/deep/ .ant-layout-content {
+  min-height: auto;
 }
 </style>
