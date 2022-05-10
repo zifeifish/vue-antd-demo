@@ -1,6 +1,6 @@
 <template>
   <a-layout id="layout-container">
-    <a-layout-sider width="240px" v-model="collapsed" :trigger="null" :collapsible="collapsible">
+    <a-layout-sider width="240px" style="z-index: 9;" v-model="collapsed" :trigger="null" :collapsible="collapsible">
       <div class="logo">
         <img src="" alt="logo" />
         <h1 v-if="!collapsed">葱姜蒜通知平台</h1>
@@ -12,8 +12,8 @@
       <a-layout-header style="background: #fff; padding: 0">
         <div style="display: flex; justify-content: space-between">
           <a-icon class="trigger" :type="collapsed ? 'menu-unfold' : 'menu-fold'"
-            @click="() => (collapsed = !collapsed)" />
-          <golbal-header style="margin-right: 50px"></golbal-header>
+            @click="toggle()" />
+          <golbal-header style="margin-right: 50px" @toggle="toggle"></golbal-header>
         </div>
       </a-layout-header>
       <nav-header style="margin-top: 2px"></nav-header>
@@ -34,6 +34,7 @@ import SiderMenu from "./components/Menu/SiderMenu";
 import GolbalFooter from "./components/GolbalFooter/GolbalFooter";
 import GolbalHeader from "./components/GolbalHeader/GolbalHeader";
 import NavHeader from "./components/NavHeader/NavHeader";
+import { mapActions } from 'vuex'
 export default {
   name: "BaseLayout",
   components: {
@@ -92,11 +93,18 @@ export default {
         // },
         {
           path: "/edit-article/index",
-          icon: "",
+          icon: "edit",
           title: "编辑文章",
         }
       ],
     };
+  },
+  methods: {
+    ...mapActions(['setSidebar']),
+    toggle() {
+      this.collapsed = !this.collapsed
+      this.setSidebar(!this.collapsed)
+    },
   },
 };
 </script>
