@@ -1,31 +1,56 @@
 <template>
   <a-layout id="layout-container">
-    <a-layout-sider width="240px" style="z-index: 9;" v-model="collapsed" :trigger="null" :collapsible="collapsible">
+    <a-layout-sider
+      width="240px"
+      style="z-index: 9"
+      v-model="collapsed"
+      :trigger="null"
+      :collapsible="collapsible"
+    >
       <div class="logo">
         <img src="" alt="logo" />
         <h1 v-if="!collapsed">葱姜蒜通知平台</h1>
       </div>
-      <sider-menu :mode="mode" :theme="theme" :menu="menu" :collapsed="collapsed"></sider-menu>
+      <sider-menu
+        :mode="mode"
+        :theme="theme"
+        :menu="menu"
+        :collapsed="collapsed"
+      ></sider-menu>
     </a-layout-sider>
 
-    <a-layout>
+    <a-layout id="backTopRef">
       <a-layout-header style="background: #fff; padding: 0">
         <div style="display: flex; justify-content: space-between">
-          <a-icon class="trigger" :type="collapsed ? 'menu-unfold' : 'menu-fold'"
-            @click="toggle()" />
-          <golbal-header style="margin-right: 50px" @toggle="toggle"></golbal-header>
+          <a-icon
+            class="trigger"
+            :type="collapsed ? 'menu-unfold' : 'menu-fold'"
+            @click="toggle()"
+          />
+          <golbal-header
+            style="margin-right: 50px"
+            @toggle="toggle"
+          ></golbal-header>
         </div>
       </a-layout-header>
       <nav-header style="margin-top: 2px"></nav-header>
-      <a-layout-content :style="{
-        margin: '30px 15px',
-      }">
+      <a-layout-content
+        :style="{
+          margin: '30px 15px',
+        }"
+      >
         <router-view></router-view>
       </a-layout-content>
-
       <a-layout-footer style="padding: 10px 50px">
         <golbal-footer></golbal-footer>
       </a-layout-footer>
+      <a-back-top :target="backTopDom">
+        <div class="ant-back-top-content">
+          <div class="back-top-icon">
+            <a-icon type="vertical-align-top" />
+          </div>
+        </div>
+      </a-back-top>
     </a-layout>
   </a-layout>
 </template>
@@ -34,7 +59,7 @@ import SiderMenu from "./components/Menu/SiderMenu";
 import GolbalFooter from "./components/GolbalFooter/GolbalFooter";
 import GolbalHeader from "./components/GolbalHeader/GolbalHeader";
 import NavHeader from "./components/NavHeader/NavHeader";
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 export default {
   name: "BaseLayout",
   components: {
@@ -95,15 +120,19 @@ export default {
           path: "/edit-article/index",
           icon: "edit",
           title: "编辑文章",
-        }
+        },
       ],
     };
   },
   methods: {
-    ...mapActions(['setSidebar']),
+    ...mapActions(["setSidebar"]),
     toggle() {
-      this.collapsed = !this.collapsed
-      this.setSidebar(!this.collapsed)
+      this.collapsed = !this.collapsed;
+      this.setSidebar(!this.collapsed);
+    },
+    backTopDom() {
+      const backDom = document.getElementById("backTopRef");
+      return backDom;
     },
   },
 };
@@ -147,6 +176,10 @@ export default {
     display: flex;
     justify-content: space-around;
   }
+}
+.back-top-icon {
+  font-size: 24px;
+  line-height: 40px;
 }
 
 /deep/ .ant-layout-content {
