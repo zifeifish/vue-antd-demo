@@ -187,6 +187,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@login-shadow: rgba(30, 30, 30, 0.1);
 .main {
   min-width: 260px;
   width: 400px;
@@ -204,8 +205,9 @@ export default {
     background-color: rgba(6, 141, 255, 0.08);
     margin-top: 36px;
     position: relative;
-    box-shadow: 6px 8px 8px rgb(33 33 33 / 10%),
-      -6px 8px 8px rgb(33 33 33 / 10%);
+    // 这里如果设置rgb(33 33 33 / 10%)编译会报错
+    box-shadow: 6px 8px 8px rgba(33, 33, 33, 0.1),
+      -6px 8px 8px rgba(33, 33, 33, 0.1);
     transition: all 0.4s;
     #formLogin {
       padding: 40px;

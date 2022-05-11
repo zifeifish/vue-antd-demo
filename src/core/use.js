@@ -7,8 +7,7 @@ Cookie.set('skey', '03b21341018ecae9de9b905bb486094e2337')
 import Antd from 'ant-design-vue'
 import { notification } from 'ant-design-vue'
 // import { Icon } from 'ant-design-vue'
-import 'ant-design-vue/dist/antd.css'
-import '@/assets/iconfonts/iconfont.css'
+// import '@/assets/iconfonts/iconfont.css'
 
 Vue.use(Antd)
 
