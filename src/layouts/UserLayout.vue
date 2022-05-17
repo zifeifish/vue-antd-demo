@@ -10,14 +10,9 @@
       <router-view></router-view>
 
       <div class="footer">
-        ©葱姜蒜科技有限公司版权所有 2017-2022
-        <img src="~@/assets/images/police.png" />
-        <a
-          href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030402004002"
-          target="_blank"
-          >粤公网安备 9797979797号</a
-        >&nbsp;<a href="http://beian.miit.gov.cn/" target="_blank"
-          >粤ICP备646256866号</a
+        ©葱姜蒜科技有限公司版权所有 2017-{{currentYear}} {{version}}
+        <a href="http://beian.miit.gov.cn/" target="_blank"
+          >粤ICP备2022042012号-1</a
         >
       </div>
     </div>
@@ -27,6 +22,15 @@
 <script>
 export default {
   name: "UserLayout",
+  data() {
+    return {
+      currentYear: new Date().getFullYear(),
+      version: process.env.VUE_APP_VERSION
+    }
+  },
+  created() {
+    console.log('version', process.env.VUE_APP_VERSION)
+  },
 };
 </script>
 
@@ -65,7 +69,7 @@ export default {
       display: flex;
       justify-content: center;
       width: 100%;
-      color: #fff;
+      color: rgba(239,229,229,0.45);
       bottom: 0;
       padding: 0 16px;
       margin: 48px 0 24px;
@@ -74,7 +78,6 @@ export default {
         margin: 0 5px;
       }
       a {
-        color: #fff;
         transition: all 0.3s;
         margin: 0 5px;
       }
