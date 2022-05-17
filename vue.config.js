@@ -3,10 +3,10 @@
 //     return path.join(__dirname, dir)
 //   }
 const { version } = require('./package.json')
+const { FileListPlugin, VersionPlugin } = require('./extra-webpack-plugin');
 
 process.env.VUE_APP_VERSION = version
 
-console.log('process', process.env);
 const vueConfig = {
     publicPath: process.env.VUE_PUBLIC_PATH || '/',
     productionSourceMap: false,
@@ -40,6 +40,13 @@ const vueConfig = {
             },
         },
     },
+    configureWebpack: {
+        plugins: [
+            // 自定义插件
+            new FileListPlugin(),
+            new VersionPlugin()
+        ]
+    }
 }
 
 module.exports = vueConfig
