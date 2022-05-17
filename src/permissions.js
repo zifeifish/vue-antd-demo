@@ -16,8 +16,7 @@ router.beforeEach(async (to, from, next) => {
             console.log(store.getters.token);
             next()
         } else {
-            // next({ path: '/user/login' })
-            next()
+            next({ path: '/user/login' })
         }
     } else {
         removeWatermark()
