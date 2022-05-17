@@ -6,6 +6,7 @@ Cookie.set('skey', '03b21341018ecae9de9b905bb486094e2337')
 // base libraly
 import Antd from 'ant-design-vue'
 import { notification } from 'ant-design-vue'
+import 'ant-design-vue/dist/antd.less'
 // import { Icon } from 'ant-design-vue'
 // import '@/assets/iconfonts/iconfont.css'
 

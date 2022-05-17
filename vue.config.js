@@ -2,21 +2,25 @@
 // function resolve(dir) {
 //     return path.join(__dirname, dir)
 //   }
+const { version } = require('./package.json')
 
+process.env.VUE_APP_VERSION = version
+
+console.log('process', process.env);
 const vueConfig = {
-    publicPath: process.evn.VUE_PUBLIC_PATH || '/',
+    publicPath: process.env.VUE_PUBLIC_PATH || '/',
     productionSourceMap: false,
-    /** 这种方式设置主题没有生效，未生效原因还没有找到 */
-    // css: {
-    //     loaderOptions: {
-    //         less: {
-    //             modifyVars: {
-    //                 'primary-color': '#1d67c7',
-    //             },
-    //             javascriptEnabled: true,
-    //         },
-    //     },
-    // },
+    /** 这种方式设置antd主题色 */
+    css: {
+        loaderOptions: {
+            less: {
+                modifyVars: {
+                    'primary-color': '#1d67c7',
+                },
+                javascriptEnabled: true,
+            },
+        },
+    },
     // 跨域配置
     devServer: {
         open: true, // 浏览器自动打开页面
