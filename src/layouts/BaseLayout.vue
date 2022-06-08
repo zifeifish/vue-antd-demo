@@ -105,15 +105,21 @@ export default {
             },
           ],
         },
+        // {
+        //   path: '/edit-article',
+        //   icon: "fund",
+        //   title: "文本编辑",
+        //   children: [
+        //     {
+        //       path: "/edit-article/index",
+        //       title: "信息设置",
+        //     }
+        //   ]
+        // },
         {
           path: "/edit-article/index",
           icon: "edit",
           title: "编辑文章",
-        },
-        {
-          path: "/compress-image/index",
-          icon: "upload",
-          title: "压缩文件",
         },
       ],
     };

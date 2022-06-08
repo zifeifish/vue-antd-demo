@@ -73,21 +73,6 @@ export const routerConfig = [
 
     },
     {
-        path: '/compress-image',
-        name: 'compress',
-        meta: { title: '压缩图片' },
-        component: BaseLayout,
-        children: [
-            {
-                path: 'index',
-                name: 'compress-image',
-                meta: { title: '' },
-                component: () => import('@/views/compress-image/compress-image.vue')
-            },
-        ],
-
-    },
-    {
         path: '/403',
         component: () =>
             import(/* webpackChunkName: "fail" */ '@/views/exception/403'),
