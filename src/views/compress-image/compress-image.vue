@@ -23,6 +23,12 @@
           </p>
           <img style="max-width: 400px" :src="compressUrl" alt="压缩后" />
         </div>
+        <div style="margin-top: 30px">
+          <p v-if="compressSize">
+            <b>文件压缩后尺寸:</b> {{ Math.floor(compressSize / 1024) }} kb
+          </p>
+          <img style="max-width: 400px" :src="compressUrl" alt="压缩后" />
+        </div>
       </div>
     </a-card>
   </div>
