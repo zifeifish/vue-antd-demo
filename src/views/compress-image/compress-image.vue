@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     beforeUpload(file) {
-      // console.log("压缩前的file----------", file);
+      console.log("压缩前的file----------", file);
       let that = this;
       this.oldFileUrl = window.URL.createObjectURL(file);
       this.oldFileSize = file.size;
