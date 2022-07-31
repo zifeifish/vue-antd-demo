@@ -115,6 +115,11 @@ export default {
           icon: "upload",
           title: "压缩文件",
         },
+        {
+          path: "/dynamic-form/index",
+          icon: "block",
+          title: "动态表单",
+        },
       ],
     };
   },

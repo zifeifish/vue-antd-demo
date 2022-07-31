@@ -88,6 +88,21 @@ export const routerConfig = [
 
     },
     {
+        path: '/dynamic-form',
+        name: 'dynamic-form',
+        meta: { title: '动态表单' },
+        component: BaseLayout,
+        children: [
+            {
+                path: 'index',
+                name: 'form',
+                meta: { title: '测试' },
+                component: () => import('@/views/dynamic-form/dynamic-form.vue')
+            },
+        ],
+
+    },
+    {
         path: '/403',
         component: () =>
             import(/* webpackChunkName: "fail" */ '@/views/exception/403'),
