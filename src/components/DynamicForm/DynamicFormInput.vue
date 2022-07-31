@@ -1,41 +1,73 @@
 <template>
   <div>
-    <template v-if="fieldConfig.type === 'input'">
-      <a-col :md="8" :sm="24">
-        <a-form-item :label="fieldConfig.templateOptions.label">
-          <a-input :placeholder="fieldConfig.templateOptions.placeholder" v-decorator="[
-            fieldConfig.key,
-            {
-              rules: fieldConfig.templateOptions.rules,
-            },
-          ]" />
+    <a-form :layout="formLayout" :form="form">
+      <hu-dynamic-form-input
+        v-for="field in fields"
+        :key="field.key"
+        :model="model"
+      >
+        <a-form-item
+          :label="field.templateOptions.label"
+          :label-col="field.templateOptions.labelCol"
+          :wrapper-col="field.templateOptions.wrapperCol"
+        >
+          <template v-if="field.type === 'input'">
+            <a-input
+              :placeholder="field.templateOptions.placeholder"
+              v-decorator="[
+                field.key,
+                {
+                  rules: [
+                    {
+                      required: field.templateOptions.required,
+                      message: `${field.templateOptions.label}不能为空`,
+                    },
+                  ],
+                  initialValue: field.initialValue,
+                },
+              ]"
+            />
+          </template>
+          <template v-else-if="field.type === 'select'">
+            <a-select
+              :placeholder="field.templateOptions.placeholder"
+              v-decorator="[
+                field.key,
+                {
+                  rules: [
+                    {
+                      required: field.templateOptions.required,
+                      message: `${field.templateOptions.label}不能为空`,
+                    },
+                  ],
+                  initialValue: field.initialValue,
+                },
+              ]"
+            >
+              <a-select-option
+                v-for="option in field.templateOptions.options"
+                :key="option.value"
+                :value="option.value"
+                >{{ option.label }}</a-select-option
+              >
+            </a-select>
+          </template>
+          <template v-else-if="field.type === 'date-range'">
+            <a-range-picker
+              :showTime="field.templateOptions.showTime"
+              :format="field.templateOptions.format"
+              style="width: 100%"
+            >
+            </a-range-picker>
+          </template>
         </a-form-item>
-      </a-col>
-    </template>
-    <template v-else-if="fieldConfig.type === 'select'">
-      <a-col :md="8" :sm="24">
-        <a-form-item :label="fieldConfig.templateOptions.label">
-          <a-select :placeholder="fieldConfig.templateOptions.placeholder">
-            <a-select-option v-for="option in fieldConfig.templateOptions.options" :key="option.value"
-              :value="option.value">{{ option.label }}</a-select-option>
-          </a-select>
-        </a-form-item>
-      </a-col>
-    </template>
-    <template v-else-if="fieldConfig.type === 'date-range'">
-      <a-col :md="8" :sm="24">
-        <a-form-item label="发送时间">
-          <a-range-picker :showTime="fieldConfig.templateOptions.showTime" :format="fieldConfig.templateOptions.format"
-            style="width: 100%">
-          </a-range-picker>
-        </a-form-item>
-      </a-col>
-    </template>
+      </hu-dynamic-form-input>
+    </a-form>
   </div>
 </template>
 
 <script>
-export const fieldConfig = {
+export const field = {
   key: "email",
   type: "input",
   templateOptions: {
@@ -48,7 +80,7 @@ export default {
   name: "HuDynamicFormInput",
   props: {
     // field配置
-    fieldConfig: {
+    field: {
       type: Object,
       required: true,
     },
@@ -58,26 +90,14 @@ export default {
       required: true,
     },
   },
-  computed: {
-    data: {
-      get: function () {
-        console.log(777, this.$props);
-        return this.$props.model[this.$props.fieldConfig.key];
-      },
-      set: function (val) {
-        console.log(888, this.$props.model);
-        this.$props.model[this.$props.fieldConfig.key] = val;
-      },
-    },
-  },
+  computed: {},
   watch: {},
   data() {
     return {};
   },
-  created() { },
+  created() {},
   methods: {},
 };
 </script>
 
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>
