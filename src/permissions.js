@@ -11,7 +11,7 @@ NProgress.configure({ showSpinner: false })
 router.beforeEach(async (to, from, next) => {
     NProgress.start()
     if (to.name !== 'login') {
-        setWaterMark('管理员', '18820248184')
+        setWaterMark('哈哈哈', '177****9090')
         if (Cookie.get('skey')) {
             console.log(store.getters.token);
             next()

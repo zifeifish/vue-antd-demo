@@ -115,6 +115,11 @@ export default {
           icon: "upload",
           title: "压缩文件",
         },
+        {
+          path: "/map/china",
+          icon: "upload",
+          title: "中国地图",
+        },
       ],
     };
   },

@@ -88,6 +88,21 @@ export const routerConfig = [
 
     },
     {
+        path: '/map',
+        name: 'map',
+        meta: { title: '地图' },
+        component: BaseLayout,
+        children: [
+            {
+                path: 'china',
+                name: 'china',
+                meta: { title: '' },
+                component: () => import('@/views/map-china/map-china.vue')
+            },
+        ],
+
+    },
+    {
         path: '/403',
         component: () =>
             import(/* webpackChunkName: "fail" */ '@/views/exception/403'),
