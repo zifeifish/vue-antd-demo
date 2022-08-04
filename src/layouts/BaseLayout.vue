@@ -117,8 +117,13 @@ export default {
         },
         {
           path: "/map/china",
-          icon: "upload",
+          icon: "setting",
           title: "中国地图",
+        },
+        {
+          path: "/baidu/map",
+          icon: "fund",
+          title: "百度地图",
         },
       ],
     };

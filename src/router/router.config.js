@@ -103,6 +103,21 @@ export const routerConfig = [
 
     },
     {
+        path: '/baidu',
+        name: 'baidu',
+        meta: { title: '百度地图' },
+        component: BaseLayout,
+        children: [
+            {
+                path: 'map',
+                name: 'map-baidu',
+                meta: { title: '定位' },
+                component: () => import('@/views/baidu-map/baidu-map.vue')
+            },
+        ],
+
+    },
+    {
         path: '/403',
         component: () =>
             import(/* webpackChunkName: "fail" */ '@/views/exception/403'),
