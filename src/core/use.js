@@ -9,6 +9,7 @@ import { notification } from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.less'
 // import { Icon } from 'ant-design-vue'
 // import '@/assets/iconfonts/iconfont.css'
+import LoadingPlugin from '@/components/Loading/Loading.js'
 
 Vue.use(Antd)
 
@@ -17,6 +18,8 @@ Vue.use(VueStorage, {
     name: 'ls', // name variable Vue.[ls] or this.[$ls],
     storage: 'session', // storage name session, local, memory
 })
+
+Vue.use(LoadingPlugin, { loading: true})
 
 // const IconFont = Icon.createFromIconfontCN({
 //     scriptUrl: '//at.alicdn.com/t/font_2052613_kee3tubq4b.js',

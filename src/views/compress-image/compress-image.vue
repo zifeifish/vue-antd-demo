@@ -6,7 +6,7 @@
           <a-button> <a-icon type="upload" /> Upload </a-button>
         </a-upload>
       </div>
-      <div style="display: flex;">
+      <div style="display: flex">
         <div style="margin-top: 30px">
           <p v-if="oldFileSize">
             <b>文件压缩前尺寸:</b> {{ Math.floor(oldFileSize / 1024) }} kb
@@ -24,12 +24,17 @@
           <img style="max-width: 400px" :src="compressUrl" alt="压缩后" />
         </div>
       </div>
+      <a-button type="primary" @click="openLoadig()">
+        open loading close after 3s
+      </a-button>
     </a-card>
   </div>
 </template>
 <script>
+import { getJson, getDog } from "@/api/user";
 export default {
   name: "CompressImage",
+  components: {},
   data() {
     return {
       oldFileUrl: "",
@@ -92,6 +97,31 @@ export default {
         u8arr[n] = bstr.charCodeAt(n);
       }
       return new Blob([u8arr], { type: mime });
+    },
+
+    openLoadig() {
+      const params = {
+        loading: true,
+        data: {},
+      };
+      getJson(params)
+        .then((res) => {
+          console.log(11, res);
+        })
+        .catch((err) => {
+          console.log(22, err);
+        });
+      getDog(params)
+        .then((res) => {
+          console.log(12, res);
+        })
+        .catch((err) => {
+          console.log(23, err);
+        });
+      // this.$loading.open("正在加载中...");
+      // setTimeout(() => {
+      //   this.$loading.close();
+      // }, 3000);
     },
   },
 };

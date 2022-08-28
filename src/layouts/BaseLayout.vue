@@ -116,10 +116,15 @@ export default {
           title: "压缩文件",
         },
         {
+          path: "/map/china",
+          icon: "upload",
+          title: "中国地图",
+        },
+        {
           path: "/dynamic-form/index",
           icon: "block",
           title: "动态表单",
-        },
+        }
       ],
     };
   },

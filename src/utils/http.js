@@ -26,12 +26,13 @@ const service = axios.create({
     // baseURL: process.env.VUE_APP_API_BASE_URL,
     // baseURL: `${location.origin}/${process.env.VUE_APP_API_BASE_URL}`, // api base_url
     // baseURL: `http://10.10.20.31:8888`, // api base_url
-    baseURL: `/product/api`, // api base_url
+    // baseURL: `/product/api`, // api base_url
     timeout: 60000,
 });
 
 // 错误码处理
 const httpErr = (error) => {
+    console.log(555555555555);
     if (error.response) {
         const data = error.response.data
         const status = error.response.status
@@ -97,23 +98,27 @@ const httpErr = (error) => {
 }
 
 // resquest interceptor 
-axios.interceptors.request.use(config => {
+service.interceptors.request.use(config => {
     const token = Vue.ls.get(ACCESS_TOKEN)
     if (token) {
         config.headers['Access-Token'] = token
+    }
+    if (config.loading) {
+        Vue.$loading.open();
     }
     return config
 }, httpErr)
 
 // response interceptor 
-axios.interceptors.response.use(response => {
+service.interceptors.response.use(response => {
+    Vue.$loading.close();
     const { code, message } = response.data
 
     if (code === 20005 || code === 20002) {
         // codeErr(code)
         return Promise.reject(message)
     }
-    if (code !== 20000) {
+    if (code === 20000) {
         messsage.error(message)
         return Promise.reject(message)
     }

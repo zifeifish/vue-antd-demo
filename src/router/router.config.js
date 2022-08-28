@@ -98,9 +98,23 @@ export const routerConfig = [
                 name: 'form',
                 meta: { title: '测试' },
                 component: () => import('@/views/dynamic-form/dynamic-form.vue')
+            }
+
+        ]
+    },
+    {
+        path: '/map',
+        name: 'map',
+        meta: { title: '地图' },
+        component: BaseLayout,
+        children: [
+            {
+                path: 'china',
+                name: 'china',
+                meta: { title: '' },
+                component: () => import('@/views/map-china/map-china.vue')
             },
         ],
-
     },
     {
         path: '/403',
