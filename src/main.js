@@ -5,7 +5,7 @@ import './style/index.less'
 import router from './router/index'
 import store from './store/'
 import './core/use'
-import './permissions'
+// import './permissions'
 
 Vue.config.productionTip = false
 

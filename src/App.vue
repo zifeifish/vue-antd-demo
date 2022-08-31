@@ -1,7 +1,12 @@
 <template>
   <a-config-provider :locale="locale">
     <div id="app">
-      <router-view></router-view>
+      <nav>
+        <mrouter-link to="/403">403</mrouter-link>
+        <mrouter-link to="/404">404</mrouter-link>
+      </nav>
+      <mrouter-view></mrouter-view>
+      <!-- <router-view></router-view> -->
     </div>
   </a-config-provider>
 </template>
@@ -43,5 +48,14 @@ export default {
 @import "./style/base.less";
 #app {
   height: 100%;
+  nav {
+    text-align: center;
+    a {
+      margin: 0 30px;
+      font-weight: bold;
+      font-size: 30px;
+      text-decoration: underline;
+    }
+  }
 }
 </style>
