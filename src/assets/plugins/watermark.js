@@ -1,7 +1,4 @@
-import { setTimeout } from "core-js";
-
-
-var watermark = {};
+var Watermark = {};
 
 const WaterMarkDomId = 'w_vm_id_3.14159'
 
@@ -22,21 +19,21 @@ var w_options = {
   // 字体颜色 rgb | 16进制字符串
   w_color: '#666',
   // 透明度
-  w_opacity: '0.2',
+  w_opacity: '0.1',
   // 层级
   w_zIndex: '100000',
 }
 
 // 添加水印
-watermark.setWaterMark = (options) => {
-  var id = loadWatermark(options)
+Watermark.setWaterMark = (options) => {
+  var id = Watermark.loadWatermark(options)
   if (document.getElementById(id) === null) {
-    id = loadWatermark(options)
+    id = Watermark.loadWatermark(options)
   }
 }
 
 // 移除水印
-watermark.removeWatermark = () => {
+Watermark.removeWatermark = () => {
   var id = WaterMarkDomId
   if (document.getElementById(id) !== null) {
     document.body.removeChild(document.getElementById(id))
@@ -66,7 +63,7 @@ watermark.removeWatermark = () => {
  * @return { string } 返回水印id
  * 
  */
-var loadWatermark = (options) => {
+Watermark.loadWatermark = (options) => {
   var _options = {};
   if (options.w_options && Object.prototype.toString.call(options.w_options) === "[object Object]") {
     _options = Object.assign({}, w_options, options.w_options);
@@ -114,54 +111,58 @@ var loadWatermark = (options) => {
   document.body.appendChild(div);
 
   setTimeout(() => {
-    
-    // 选择需要观察变动的节点
-    const targetNode = document.getElementById(WaterMarkDomId);
-
-    // 观察器的配置（需要观察什么变动）
-    const config = { 
-      attributes: true, 
-      childList: true, 
-      subtree: true,
-      attributeOldValue: true,
-     };
-
-    // 当观察到变动时执行的回调函数
-    const callback = function (mutationsList, observer) {
-      console.log(observer);
-      // Use traditional 'for loops' for IE 11
-      for (let mutation of mutationsList) {
-        if (mutation.type === 'childList') {
-          console.log('A child node has been added or removed.');
-        }
-        else if (mutation.type === 'attributes') {
-          console.log('The ' + mutation.attributeName + ' attribute was modified.');
-          console.log('oldValue。。。。' + mutation.oldValue);
-          console.log('oldValue。。。。' ,  mutation.oldValue.split(';'));
-          window.alert('别动我！！！！！！！！！！啊啊啊啊啊')
-          const styleAtts = mutation.oldValue.split(';')
-          for (let i = 0; index < styleAtts.length; i++) {
-            if (styleAtts[i]) {
-              const att = styleAtts[i].split(':')[0]
-              const attValue = styleAtts[i].split(':')[1]
-              console.log(att, attValue);
-              div.style[att] = attValue
-            }
-          }
-          this.disconnect();
-        }
-      }
-    };
-
-    // 创建一个观察器实例并传入回调函数
-    const Observer = new MutationObserver(callback);
-
-    // 以上述配置开始观察目标节点
-    Observer.observe(targetNode, config);
-
-    
+    Watermark.observeDomChange(div, options);
   }, 0)
+
   return id
 };
 
-export default watermark
+/**
+ * 基于MutationObserver 监听水印DOM变化
+ * @param {*} waterMarkDom 水印DOM
+ * @param {*} options 水印参数配置
+ */
+Watermark.observeDomChange = (waterMarkDom, options) => {
+
+  // 选择需要观察变动的节点
+  const targetNode = document.querySelector('body');
+
+  // 观察器的配置（需要观察什么变动）
+  const config = {
+    attributes: true, // 观察属性变动
+    childList: true, // 观察目标子节点的变化，是否有添加或者删除
+    subtree: true, // 观察后代节点，默认为 false
+  };
+
+  // 当观察到变动时执行的回调函数
+  const callback = function (mutationsList, observer) {
+    for (let mutation of mutationsList) {
+      
+      /** 修改了水印节点属性 */
+      if (mutation.target === waterMarkDom) {
+        window.alert('非法操作！！！')
+        mutation.target.remove(); // 删除已经修改的水印节点
+        Watermark.loadWatermark(options); // 重新渲染水印
+        // 停止观察
+        observer.disconnect();
+      }
+
+      /** 强行手动删除了水印节点 */
+      if (mutation.removedNodes.length && mutation.removedNodes[0] === waterMarkDom) {
+        window.alert('非法操作！！！')
+        Watermark.loadWatermark(options);
+        // 停止观察
+        observer.disconnect();
+      }
+    }
+  };
+
+  // 创建一个观察器实例并传入回调函数 
+  // 用法详见: https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver
+  const Observer = new MutationObserver(callback);
+
+  // 以上述配置开始观察目标节点
+  Observer.observe(targetNode, config);
+}
+
+export default Watermark

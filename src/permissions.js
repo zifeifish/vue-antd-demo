@@ -2,7 +2,7 @@ import router from './router'
 import store from './store'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import watermark from '../src/assets/plugins/watermark'
+import Watermark from 'watermark-package'
 import Cookie from 'js-cookie'
 
 
@@ -11,7 +11,7 @@ NProgress.configure({ showSpinner: false })
 router.beforeEach(async (to, from, next) => {
     NProgress.start()
     if (to.name !== 'login') {
-        watermark.setWaterMark(
+        Watermark.setWaterMark(
             {
                 w_texts: ['娃哈哈', '177****0000'],
             }
@@ -23,7 +23,7 @@ router.beforeEach(async (to, from, next) => {
             next({ path: '/user/login' })
         }
     } else {
-        watermark.removeWatermark()
+        Watermark.removeWatermark()
     }
     next()
     NProgress.done()
