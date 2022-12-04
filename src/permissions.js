@@ -3,6 +3,7 @@ import store from './store'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import Watermark from 'watermark-package'
+// import Watermark from '@/assets/plugins/watermark.js'
 import Cookie from 'js-cookie'
 
 

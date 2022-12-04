@@ -22,7 +22,7 @@
     "vue-pdf": "^4.2.0",
     "vue-router": "^3.5.1",
     "vuex": "^3.6.2",
-    "watermark-package": "^2.1.0"
+    "watermark-package": "^2.1.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
